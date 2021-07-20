@@ -11,8 +11,11 @@ using UnityEditor;
 public class MenuUIHandler : MonoBehaviour
 {
     public TMP_InputField PlayerName;
+
+    public TMP_Text HighScore;
     
     void Start() {
+        HighScore.text = "Best : " + DataManager.Instance.HighScore.ToString();
         PlayerName.text = DataManager.Instance.PlayerName;
     }
 
@@ -39,6 +42,16 @@ public class MenuUIHandler : MonoBehaviour
         #else
         Application.Quit();
         #endif
+    }
+
+    public void ResetData() {
+        DataManager.Instance.PlayerName = "";
+        DataManager.Instance.HighScore = 0;
+        DataManager.Instance.HSPlayer = "";
+        HighScore.text = "Best : " + DataManager.Instance.HighScore.ToString();
+        PlayerName.text = DataManager.Instance.PlayerName;
+        DataManager.Instance.Save();
+        
     }
 
     

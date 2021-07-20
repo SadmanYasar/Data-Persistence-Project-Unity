@@ -23,7 +23,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HighScoreText.text = $"Best Score : {DataManager.Instance.PlayerName} : {DataManager.Instance.HighScore}";
+        HighScoreText.text = $"Best Score : {DataManager.Instance.HSPlayer} : {DataManager.Instance.HighScore}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -66,8 +66,14 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-
         m_Points += point;
+        if ( m_Points > DataManager.Instance.HighScore )
+        {
+            DataManager.Instance.HighScore = m_Points;
+            DataManager.Instance.HSPlayer = DataManager.Instance.PlayerName;
+            HighScoreText.text = $"Best Score : {DataManager.Instance.HSPlayer} : {DataManager.Instance.HighScore}";
+        }
+
         ScoreText.text = $"Score : {m_Points}";
     }
 
