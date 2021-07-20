@@ -10,10 +10,15 @@ using UnityEditor;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    public TMP_InputField PlayerName;
     
-    public void StartGame() {
-        TMP_InputField PlayerName = GameObject.Find("InputField").GetComponent<TMP_InputField>();
+    void Start() {
+        PlayerName.text = DataManager.Instance.PlayerName;
+    }
 
+
+    public void StartGame() {
+        
         if ( PlayerName.text == ""  )
         {
             Debug.Log("Please enter a valid name");
@@ -27,6 +32,8 @@ public class MenuUIHandler : MonoBehaviour
     }
 
     public void QuitGame() {
+        DataManager.Instance.Save();
+
         #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
         #else
@@ -34,4 +41,5 @@ public class MenuUIHandler : MonoBehaviour
         #endif
     }
 
+    
 }
