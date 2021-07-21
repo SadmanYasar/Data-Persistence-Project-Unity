@@ -13,6 +13,9 @@ public class MenuUIHandler : MonoBehaviour
     public TMP_InputField PlayerName;
 
     public TMP_Text HighScore;
+    public TMP_Text Warning;
+
+
     
     void Start() {
         HighScore.text = "Best : " + DataManager.Instance.HighScore.ToString();
@@ -20,18 +23,25 @@ public class MenuUIHandler : MonoBehaviour
     }
 
 
+    void Update() {
+        if ( PlayerName.text != "" )
+        {
+            Warning.gameObject.SetActive(false);
+        }
+    }
+
+
     public void StartGame() {
         
         if ( PlayerName.text == ""  )
         {
-            Debug.Log("Please enter a valid name");
+            Warning.gameObject.SetActive(true);
+            
         } else {
             DataManager.Instance.PlayerName = PlayerName.text.ToString();
             SceneManager.LoadScene(1);
         }
         
-
-
     }
 
     public void QuitGame() {
